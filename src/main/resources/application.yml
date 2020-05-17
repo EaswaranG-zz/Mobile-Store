@@ -1,0 +1,36 @@
+security:
+  oauth2:
+    client:
+      clientId: 276950013330983
+      clientSecret: 7f4cbd10fa54e6b8962a3a2e81763728
+      accessTokenUri: https://graph.facebook.com/oauth/access_token
+      userAuthorizationUri: https://www.facebook.com/dialog/oauth
+      tokenName: oauth_token
+      authenticationScheme: query
+      clientAuthenticationScheme: form
+    resource:
+      userInfoUri: https://graph.facebook.com/me    
+     
+spring:
+    main:
+        allow-bean-definition-overriding: true
+    datasource:
+        url: jdbc:mysql://localhost:3306/easwarDb
+        username: root
+        password: easwaran
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    mvc:
+        view:
+          prefix: /WEB-INF/Views/
+          suffix: .jsp
+    resources:
+        add-mappings: true        
+        static-locations: /WEB-INF/Resources/Images
+        
+application:
+    view:
+        mobile-name: "Eas"
+
+error:
+  whitelabel:
+    enabled: false
