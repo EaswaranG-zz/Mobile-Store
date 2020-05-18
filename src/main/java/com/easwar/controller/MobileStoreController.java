@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+import javax.print.attribute.standard.MediaSize.Other;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,32 +22,33 @@ public class MobileStoreController {
 
 	@Autowired
 	MobileInventoryInterface mobileInventoryInterface;
-	
+
 	@Autowired
 	MobileInventory mobileInventory;
 
 	@GetMapping("/listAllMobiles")
-	public List<MobileInventory> getAllMobiles() {		
+	public List<MobileInventory> getAllMobiles() {
 		List<MobileInventory> studentsList = (List<MobileInventory>) mobileInventoryInterface.findAll();
-		
+
 		return studentsList;
 	}
-	
-	@RequestMapping(value="/buy", method=RequestMethod.GET)
-	public ModelAndView getBuyerPage() {		
+
+	@RequestMapping(value = "/buy", method = RequestMethod.GET)
+	public ModelAndView getBuyerPage() {
 		ModelAndView buyerPageView = new ModelAndView("buyerPage");
 		return buyerPageView;
 	}
-	
-	@RequestMapping(value="/sell", method=RequestMethod.GET)
-	public ModelAndView getSellerPage() {		
-		ModelAndView homeView = new ModelAndView("sellerPage");		
+
+	@RequestMapping(value = "/sell", method = RequestMethod.GET)
+	public ModelAndView getSellerPage() {
+		ModelAndView homeView = new ModelAndView("sellerPage");
 		return homeView;
 	}
-	
-	@RequestMapping(value="/addMobile", method=RequestMethod.GET)
-	public ModelAndView addMobile(@RequestParam("productID") int productID, @RequestParam("productName") String productName,
-			@RequestParam("unitCost") int unitCost) throws SQLException {
+
+	@RequestMapping(value = "/addMobile", method = RequestMethod.GET)
+	public ModelAndView addMobile(@RequestParam("productID") int productID,
+			@RequestParam("productName") String productName, @RequestParam("unitCost") int unitCost)
+			throws SQLException {
 
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("productID", productID);
@@ -59,28 +62,40 @@ public class MobileStoreController {
 		mobileInventoryInterface.save(mobileInventory);
 		return mv;
 	}
-	
-	@RequestMapping(value="/findMobilebyID", method=RequestMethod.GET)
-	public List<MobileInventory> searchMobile(@RequestParam("productName") String productName) throws SQLException {
-		List<MobileInventory> studentsList = (List<MobileInventory>) mobileInventoryInterface.findAll();
-		
+
+	/**
+	 * @author Easwaran
+	 * @param productName as String
+	 * @return List of selected items from repo
+	 * 
+	 * This method is to search product name in repo
+	 * 
+	 */
+	@RequestMapping(value = "/findMobilebyID", method = RequestMethod.GET)
+	public List<MobileInventory> searchMobile(@RequestParam("productName") Optional<String> productName)
+			throws SQLException {
+		// List<MobileInventory> studentsList = (List<MobileInventory>)
+		// mobileInventoryInterface.findAll();
+		List<MobileInventory> studentsList = (List<MobileInventory>) mobileInventoryInterface
+				.findByProductName(productName.orElse("_"));
+
 		return studentsList;
 	}
 
-	@RequestMapping(value="/", method=RequestMethod.GET)
-	public ModelAndView getHome() {		
-		ModelAndView homeView = new ModelAndView("home");		
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public ModelAndView getHome() {
+		ModelAndView homeView = new ModelAndView("home");
 		return homeView;
 	}
 
-	private static final String PATH ="/error";
-	
-	@RequestMapping(value=PATH, method=RequestMethod.GET)
+	private static final String PATH = "/error";
+
+	@RequestMapping(value = PATH, method = RequestMethod.GET)
 	public String error() {
-		
+
 		return "Custom Error";
 	}
-	
+
 	public String getErrorPath() {
 		return PATH;
 	}

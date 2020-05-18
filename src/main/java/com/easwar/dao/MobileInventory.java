@@ -7,8 +7,15 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Component
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 @Table(name = "mobile_inventory")
 public class MobileInventory {
 	
@@ -22,28 +29,5 @@ public class MobileInventory {
 	@Column(name = "unit_cost")
 	private int unitCost;
 	
-	public int getProductID() {
-		return productID;
-	}
-
-	public void setProductID(int productID) {
-		this.productID = productID;
-	}
-
-	public String getProductName() {
-		return productName;
-	}
-
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
-
-	public int getUnitCost() {
-		return unitCost;
-	}
-
-	public void setUnitCost(int unitCost) {
-		this.unitCost = unitCost;
-	}
 	
 }
