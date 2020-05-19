@@ -4,9 +4,10 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-import javax.print.attribute.standard.MediaSize.Other;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -68,18 +69,16 @@ public class MobileStoreController {
 	 * @param productName as String
 	 * @return List of selected items from repo
 	 * 
-	 * This method is to search product name in repo
+	 *         This method is to search product name in repo
 	 * 
 	 */
 	@RequestMapping(value = "/findMobilebyID", method = RequestMethod.GET)
-	public List<MobileInventory> searchMobile(@RequestParam("productName") Optional<String> productName)
-			throws SQLException {
-		// List<MobileInventory> studentsList = (List<MobileInventory>)
-		// mobileInventoryInterface.findAll();
-		List<MobileInventory> studentsList = (List<MobileInventory>) mobileInventoryInterface
-				.findByProductName(productName.orElse("_"));
+	public Page<MobileInventory> searchMobile(@RequestParam Optional<String> productName,
+			@RequestParam Optional<Integer> page) throws SQLException {
 
-		return studentsList;
+		return mobileInventoryInterface.findByProductName(productName.orElse("_"),
+				PageRequest.of(page.orElse(0), 2));
+
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
