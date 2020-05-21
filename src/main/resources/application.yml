@@ -21,15 +21,15 @@ spring:
         driver-class-name: com.mysql.cj.jdbc.Driver
     mvc:
         view:
-          prefix: /WEB-INF/Views/
+          prefix: /WEB-INF/views/
           suffix: .jsp
     resources:
         add-mappings: true        
-        static-locations: /WEB-INF/Resources/Images
+        static-locations: /WEB-INF/resources/
         
 application:
     view:
-        mobile-name: "Eas"
+        mobile-name: "Easwar"
 
 error:
   whitelabel:

@@ -77,7 +77,7 @@ public class MobileStoreController {
 			@RequestParam Optional<Integer> page) throws SQLException {
 
 		return mobileInventoryInterface.findByProductName(productName.orElse("_"),
-				PageRequest.of(page.orElse(0), 2));
+				PageRequest.of(page.orElse(0), 5));
 
 	}
 
@@ -85,6 +85,12 @@ public class MobileStoreController {
 	public ModelAndView getHome() {
 		ModelAndView homeView = new ModelAndView("home");
 		return homeView;
+	}
+	
+	@RequestMapping(value = "/buyerSearch", method = RequestMethod.GET)
+	public ModelAndView getbuyerSearch() {
+		ModelAndView buyerSearchView = new ModelAndView("buyerSearch");
+		return buyerSearchView;
 	}
 
 	private static final String PATH = "/error";
