@@ -87,11 +87,6 @@ public class MobileStoreController {
 		return homeView;
 	}
 	
-	@RequestMapping(value = "/buyerSearch", method = RequestMethod.GET)
-	public ModelAndView getbuyerSearch() {
-		ModelAndView buyerSearchView = new ModelAndView("buyerSearch");
-		return buyerSearchView;
-	}
 
 	private static final String PATH = "/error";
 
