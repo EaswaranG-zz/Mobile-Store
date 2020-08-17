@@ -180,7 +180,7 @@
 		<div class="footer-nav">
 			<div class="container">
 				<div class="row">
-					<p>Author : Easwar</p>
+					<p>Contact : rajkumar26041997@gmail.com</p>
 				</div>
 			</div>
 		</div>

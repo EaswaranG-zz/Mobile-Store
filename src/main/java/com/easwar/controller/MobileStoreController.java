@@ -7,7 +7,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -76,8 +75,7 @@ public class MobileStoreController {
 	public Page<MobileInventory> searchMobile(@RequestParam Optional<String> productName,
 			@RequestParam Optional<Integer> page) throws SQLException {
 
-		return mobileInventoryInterface.findByProductName(productName.orElse("_"),
-				PageRequest.of(page.orElse(0), 5));
+		return mobileInventoryInterface.findByProductName(productName.orElse("_"), PageRequest.of(page.orElse(0), 5));
 
 	}
 
@@ -86,7 +84,12 @@ public class MobileStoreController {
 		ModelAndView homeView = new ModelAndView("home");
 		return homeView;
 	}
-	
+
+	@RequestMapping(value = "/cardRedirect", method = RequestMethod.GET)
+	public ModelAndView method() {
+		ModelAndView buyerPageView = new ModelAndView("buyerPage");
+		return buyerPageView;
+	}
 
 	private static final String PATH = "/error";
 
